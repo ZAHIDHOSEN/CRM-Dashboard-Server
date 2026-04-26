@@ -3,36 +3,24 @@ import { IUser, UserRole } from './user.interface';
 
 
 const userSchema = new Schema<IUser>({
-  orgId: { type: String, required: true },
+  name:{type: String, required:true,},
   email: { type: String, required: true, unique: true, lowercase: true },
+  password: {type: String, required: true},
   role: { 
     type: String, 
     enum: Object.values(UserRole), 
     default: UserRole.CLIENT 
   },
-  profile: {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    avatarUrl: { type: String },
-    phoneNumber: { type: String, required: true }
-  },
-  onboarding: {
-    isCompleted: { type: Boolean, default: false },
-    currentStep: { type: Number, default: 0 },
-    checklistItems: [{ type: String }]
-  },
-  gamification: {
-    xp: { type: Number, default: 0 },
-    level: { type: Number, default: 1 },
-    badges: [{ type: String }],
-    streakDays: { type: Number, default: 0 }
-  },
-  downline: {
-    uplineId: { type: String, default: null }, 
-    referralCode: { type: String, unique: true, required: true },
-    level: { type: Number, default: 0 },
-    childrenIds: [{ type: String }] 
-  }
+
+  organization: {type: Schema.Types.ObjectId, ref:"Organization" },
+   team: { type: Schema.Types.ObjectId, ref: "Team" },
+   downline: [{ type: Schema.Types.ObjectId, ref: "User" }],
+   inviter: { type: Schema.Types.ObjectId, ref: "User" },
+   certifications: [String],
+   commission_balance: { type: Number, default: 0 },
+   isApproved: { type: Boolean, default: false },
+ 
+ 
 }, {
   timestamps: true, 
  

@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 
 
 export enum UserRole {
@@ -11,33 +12,21 @@ export enum UserRole {
 
 
 export interface IUser {
-   id: string,
-   orgId: string,
+   name: string,
    email: string;
+   password?: string;
    role: UserRole;
-   profile:{
-      firstName: string;
-      lastName: string;
-      avatarUrl?: string;
-      phoneNumber: string;
-   };
-   onboarding: {
-    isCompleted: boolean;
-    currentStep: number;
-    checklistItems: string[];
-   };
-   gamification:{
-    xp: number;
-    level: number;
-    badges: string[];
-    streakDays: number;
+   organization: Types.ObjectId;
+   team?: Types.ObjectId;
+   downline?: Types.ObjectId[];
+   inviter?: string;
+   certifications?: string[];
+   commission_balance: number;
+   isApproved: boolean;
 
-   };
-   downline:{
-    uplineId: string | null;      
-    referralCode: string;
-    level: number;                
-    childrenIds: string[];
-   };
+
+ 
+
+
 
 }
