@@ -1,12 +1,14 @@
 import express,{ Request, Response } from "express"
 import cookieParser from "cookie-parser"
 import { UserRoute } from "./app/module/user/user.route"
+import { LeadRoute } from "./app/module/lead/lead.route"
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
 app.use("/api/v1/user",UserRoute)
+app.use("api/v1/lead",LeadRoute)
 
 
 app.get("/",(req:Request,res:Response)=>{
