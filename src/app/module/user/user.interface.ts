@@ -16,13 +16,13 @@ export interface IUser {
    email: string;
    password?: string;
    role: UserRole;
-   organization: Types.ObjectId;
+   organization?: Types.ObjectId;
    team?: Types.ObjectId;
    downline?: Types.ObjectId[];
-   inviter?: string;
+   inviter?: Types.ObjectId;
    certifications?: string[];
-   commission_balance: number;
-   isApproved: boolean;
+   commission_balance?: number;
+   isApproved?: boolean;
 
 
  
