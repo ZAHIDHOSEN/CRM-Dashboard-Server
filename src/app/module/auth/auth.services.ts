@@ -1,6 +1,7 @@
 import { IUser } from "../user/user.interface"
 import bcrypt from "bcrypt"
 import { User } from "../user/user.model"
+import { createToken } from "../../utils/jwt"
 
 
 const login = async(email:string,password:string)=>{
@@ -19,13 +20,26 @@ const login = async(email:string,password:string)=>{
     if(!comparePassword){
         throw new Error("password does not match")
     }
+
+    const jwtPayload = {
+        _id:user._id,
+        email:user.email,
+        role:user.role
+    }
   
-    const userObj = user.toObject()
-    delete userObj.password
+    const userWithOutPassword = user.toObject()
+    delete userWithOutPassword.password
+
+
+   
+    const accessToken = createToken(jwtPayload,process.env.JWT_ACCESS_SECRET as string,process.env.JWT_ACCESS_EXPIRES as string)
+    const refreshToken = createToken(jwtPayload,process.env.JWT_REFRESH_SECRET as string,process.env.JWT_REFRESH_EXPIRES as string)
    
 
     return {
-        user:userObj
+        userWithOutPassword,
+        accessToken,
+        refreshToken
     }
 
 
