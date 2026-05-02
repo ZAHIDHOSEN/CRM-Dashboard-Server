@@ -1,8 +1,8 @@
 import { IUser } from "../user/user.interface"
-import bcrypt from "bcrypt"
 import { User } from "../user/user.model"
 import { createToken } from "../../utils/jwt"
-
+import bcrypt from "bcrypt"
+import { JwtPayload } from "jsonwebtoken"
 
 const login = async(email:string,password:string)=>{
   
@@ -46,6 +46,29 @@ const login = async(email:string,password:string)=>{
 }
 
 
+const resetPassword = async( payload:Record<string,any>,decodedToken:JwtPayload) => {
+   if(payload.id != decodedToken.userId){
+    throw new Error("you can't reset password")
+   }
+
+   const isUserExit = await User.findById(decodedToken.userId)
+    if(!isUserExit){
+      throw new Error("user does not exists")
+    }  
+    
+    const hashPassword = await bcrypt.hash(
+      payload.newPassword,
+      Number(10)
+    )
+
+    isUserExit.password = hashPassword
+
+    await isUserExit.save()
+     
+
+}
+
+
 
 
 
@@ -56,5 +79,6 @@ const login = async(email:string,password:string)=>{
 
 
 export const AuthServices ={
-    login
+    login,
+    resetPassword
 }

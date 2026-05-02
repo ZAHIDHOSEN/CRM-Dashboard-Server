@@ -8,7 +8,7 @@ const router = Router()
 
 router.post("/",AuthController.login)
 router.post("/logout",AuthController.logOut)
-
+router.post("/reset-password",AuthController.resetPassword)
 
 
 

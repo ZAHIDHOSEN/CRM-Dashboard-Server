@@ -1,7 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AuthServices } from "./auth.services";
 import { setAuthCookie } from "../../utils/setCookie";
-
+import { catchAsync } from "../../utils/catchAsync";
+import { sendResponse } from "../../utils/sendResponse";
+import httpStatus from "http-status-codes"
+import { JwtPayload } from "jsonwebtoken";
 
 const isProduction = process.env.NODE_ENV === "production"
 
@@ -60,6 +63,24 @@ const logOut = async(req:Request,res:Response)=>{
 
 
 
+const resetPassword = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+  const payload = req.body
+  const decodedToken = req.user
+
+  await AuthServices.resetPassword(payload,decodedToken as JwtPayload)
+  
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.ACCEPTED,
+        message:"password reset successfully",
+        data: null
+
+
+     })
+})
+
+
 
 
 
@@ -76,5 +97,6 @@ const logOut = async(req:Request,res:Response)=>{
 
 export const AuthController ={
     login,
-    logOut
+    logOut,
+    resetPassword
 }
