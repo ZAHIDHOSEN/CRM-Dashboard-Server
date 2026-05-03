@@ -1,9 +1,10 @@
+import { Types } from "mongoose";
 
 
 export interface IOrganization {
   name: string;
-  admin: string; 
-  users: string[]; 
+  admin: Types.ObjectId; 
+  users: Types.ObjectId[]; 
   branding?: {
     logo?: string;
     primaryColor?: string;
