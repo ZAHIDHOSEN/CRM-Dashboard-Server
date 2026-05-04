@@ -9,7 +9,8 @@ import { UserRole } from "../user/user.interface";
 const router = Router()
 
 router.post("/",checkAuth(),OrganizationController.createOrganization)
-
+router.patch("/:id",checkAuth(),OrganizationController.updateOrganization)
+router.delete("/:id",checkAuth(),OrganizationController.deleteOrganization)
 
 
 

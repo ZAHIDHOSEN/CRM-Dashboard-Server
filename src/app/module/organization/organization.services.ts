@@ -41,6 +41,35 @@ const createOrganization = async(payload:Partial<IOrganization>,adminId:Types.Ob
 
 
 
+const updateOrganization = async(payload:Partial<IOrganization>,id:string)=>{
+
+    const organization = await Organization.findByIdAndUpdate(id,{
+          name:payload.name,
+          branding:{
+            logo: payload.branding?.logo,
+            primaryColor: payload.branding?.primaryColor
+          }
+    },{new:true,runValidators:true})
+
+    return organization
+}
+
+
+
+
+
+const deleteOrganization = async(id:string)=>{
+    
+    const organization = await Organization.findByIdAndDelete(id)
+     
+    if(!organization){
+        throw new Error("organization not found")
+    }
+    return organization
+}
+
+
+
 
 
 
@@ -53,5 +82,7 @@ const createOrganization = async(payload:Partial<IOrganization>,adminId:Types.Ob
 
 
 export const OrganizationServices ={
-    createOrganization
+    createOrganization,
+    updateOrganization,
+    deleteOrganization
 }
