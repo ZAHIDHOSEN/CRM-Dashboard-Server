@@ -13,6 +13,9 @@ router.patch("/:id",checkAuth(),OrganizationController.updateOrganization)
 router.delete("/:id",checkAuth(),OrganizationController.deleteOrganization)
 router.get("/",checkAuth(UserRole.ADMIN),OrganizationController.getAllOrganization)
 router.get("/:id",checkAuth(UserRole.ADMIN),OrganizationController.getSingleOrganization)
+// advance 
+router.get("/me",checkAuth(),OrganizationController.getMyOrganization)
+
 
 
 

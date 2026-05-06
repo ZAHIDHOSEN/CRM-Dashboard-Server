@@ -92,6 +92,45 @@ const getSingleOrganization = async(id:string)=>{
 
 
 
+const getMyOrganization = async(userId:string)=>{
+    const user = await User.findById(userId).populate("organization")
+
+    if(!user || !user.organization){
+        throw new Error("no organization found")
+    }
+}
+
+
+const addUserToOrganization = async(id:string,userId:string)=>{
+    
+    const organization = await Organization.findById(id)
+    if(!organization){
+        throw new Error("organization not found")
+    }
+
+    const user = await User.findById(userId)
+    if(!user){
+        throw new Error("user not found")
+    }
+
+    if(organization.users.includes(user._id)){
+        throw new Error("user already in organization")
+
+    }
+
+    organization.users.push(user._id)
+    await organization.save()
+
+    // update user
+
+    user.organization = organization._id
+    await user.save()
+
+    return organization
+}
+
+
+
 
 
 
@@ -108,5 +147,7 @@ export const OrganizationServices ={
     updateOrganization,
     deleteOrganization,
     getAllOrganization,
-    getSingleOrganization
+    getSingleOrganization,
+    getMyOrganization,
+    addUserToOrganization
 }

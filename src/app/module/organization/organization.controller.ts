@@ -96,6 +96,39 @@ const getSingleOrganization = catchAsync(async(req:Request, res:Response, next: 
 })
 
 
+const getMyOrganization = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+       
+        const userId = req.user._id
+        const result = await OrganizationServices.getMyOrganization(userId)
+ 
+  
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"MyOrganization get successfully",
+        data: result
+
+
+     })
+})
+
+
+
+const addUserToOrganization = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+       
+       const id = req.params.id as string
+       const {userId} = req.body
+       const result = await OrganizationServices.addUserToOrganization(id,userId)
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"addOrganization get successfully",
+        data: result
+
+
+     })
+})
+
 
 
 
@@ -106,5 +139,7 @@ export const OrganizationController ={
     updateOrganization,
     deleteOrganization,
     getAllOrganization,
-    getSingleOrganization
+    getSingleOrganization,
+    getMyOrganization,
+    addUserToOrganization
 }
