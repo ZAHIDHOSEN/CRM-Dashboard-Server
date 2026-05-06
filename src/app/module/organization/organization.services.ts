@@ -98,6 +98,9 @@ const getMyOrganization = async(userId:string)=>{
     if(!user || !user.organization){
         throw new Error("no organization found")
     }
+    
+    const organization = user.organization
+    return organization
 }
 
 
@@ -130,6 +133,45 @@ const addUserToOrganization = async(id:string,userId:string)=>{
 }
 
 
+const removeUserToOrganization = async(id:string,userId:string)=>{
+  const organization = await Organization.findById(id)
+  
+  if(!organization){
+    throw new Error("organization not found")
+  }
+
+  organization.users = organization.users.filter(
+    (id:any)=> id.toString() !==userId
+  )
+
+  await organization.save()
+
+//   remove organization
+
+await User.findByIdAndUpdate(userId,{
+    $unset:{organization:""}
+})
+
+return organization
+  
+
+    
+}
+
+
+
+const updateRole = async(userId:string,role:UserRole)=>{
+    const user = await User.findById(userId)
+    if(!user){
+        throw new Error("user not found")
+    }
+
+    user.role = role
+    await user.save()
+    return user
+}
+
+
 
 
 
@@ -149,5 +191,7 @@ export const OrganizationServices ={
     getAllOrganization,
     getSingleOrganization,
     getMyOrganization,
-    addUserToOrganization
+    addUserToOrganization,
+    removeUserToOrganization,
+    updateRole
 }

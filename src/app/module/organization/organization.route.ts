@@ -15,8 +15,9 @@ router.get("/",checkAuth(UserRole.ADMIN),OrganizationController.getAllOrganizati
 router.get("/:id",checkAuth(UserRole.ADMIN),OrganizationController.getSingleOrganization)
 // advance 
 router.get("/me",checkAuth(),OrganizationController.getMyOrganization)
-
-
+router.post("/:id/users",checkAuth(),OrganizationController.addUserToOrganization)
+router.delete("/:id/users/:userId",checkAuth(),OrganizationController.removeUserToOrganization)
+router.patch("/:id/users/:userId",checkAuth(),OrganizationController.updateRole)
 
 
 

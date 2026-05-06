@@ -95,7 +95,7 @@ const getSingleOrganization = catchAsync(async(req:Request, res:Response, next: 
      })
 })
 
-
+// advance
 const getMyOrganization = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
        
         const userId = req.user._id
@@ -131,6 +131,44 @@ const addUserToOrganization = catchAsync(async(req:Request, res:Response, next: 
 
 
 
+const removeUserToOrganization = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+       
+       const id = req.params.id as string
+      //  const userId = req.user._id
+      const {userId} = req.body
+      
+        await OrganizationServices.removeUserToOrganization(id,userId)
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"removeOrganization  successfully",
+        data: null
+
+
+     })
+})
+
+
+
+const updateRole = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+       
+   const userId = req.params.userId as string
+   const {role} = req.body
+      
+   const result = await OrganizationServices.updateRole(userId,role)
+      
+       
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"updateUser role successfully",
+        data: result
+
+
+     })
+})
+
+
 
 
 
@@ -141,5 +179,7 @@ export const OrganizationController ={
     getAllOrganization,
     getSingleOrganization,
     getMyOrganization,
-    addUserToOrganization
+    addUserToOrganization,
+    removeUserToOrganization,
+    updateRole
 }
