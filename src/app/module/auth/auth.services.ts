@@ -24,7 +24,8 @@ const login = async(email:string,password:string)=>{
     const jwtPayload = {
         _id:user._id,
         email:user.email,
-        role:user.role
+        role:user.role,
+        organization:user.organization
     }
   
     const userWithOutPassword = user.toObject()

@@ -4,6 +4,8 @@ import { UserRoute } from "./app/module/user/user.route"
 import { LeadRoute } from "./app/module/lead/lead.route"
 import { AuthRouter } from "./app/module/auth/auth.route"
 import { OrganizationRoute } from "./app/module/organization/organization.route"
+import { TeamRoute } from "./app/module/team/team.route"
+
 
 const app = express()
 app.use(express.json())
@@ -13,6 +15,7 @@ app.use("/api/v1/user",UserRoute)
 app.use("/api/v1/lead",LeadRoute)
 app.use("/api/v1/auth",AuthRouter)
 app.use("/api/v1/organization",OrganizationRoute)
+app.use("/api/v1/team",TeamRoute)
 
 app.get("/",(req:Request,res:Response)=>{
 
