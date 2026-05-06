@@ -69,6 +69,28 @@ const deleteOrganization = async(id:string)=>{
 }
 
 
+const getAllOrganization = async()=>{
+    
+    const organization = await Organization.find()
+
+    return organization
+}
+
+
+
+
+const getSingleOrganization = async(id:string)=>{
+    
+    const organization = await Organization.findById(id)
+
+    if(!organization){
+        throw new Error("organization not found")
+    }
+
+    return organization
+}
+
+
 
 
 
@@ -84,5 +106,7 @@ const deleteOrganization = async(id:string)=>{
 export const OrganizationServices ={
     createOrganization,
     updateOrganization,
-    deleteOrganization
+    deleteOrganization,
+    getAllOrganization,
+    getSingleOrganization
 }

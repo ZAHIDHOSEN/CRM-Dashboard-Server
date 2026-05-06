@@ -64,6 +64,38 @@ const deleteOrganization = catchAsync(async(req:Request, res:Response, next: Nex
 })
 
 
+const getAllOrganization = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+       const result = await OrganizationServices.getAllOrganization()
+ 
+  
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"organization get successfully",
+        data: result
+
+
+     })
+})
+
+const getSingleOrganization = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+       
+        const id = req.params.id as string
+        const result = await OrganizationServices.getSingleOrganization(id)
+ 
+  
+       sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"SingleOrganization get successfully",
+        data: result
+
+
+     })
+})
+
+
 
 
 
@@ -72,5 +104,7 @@ const deleteOrganization = catchAsync(async(req:Request, res:Response, next: Nex
 export const OrganizationController ={
     createOrganization,
     updateOrganization,
-    deleteOrganization
+    deleteOrganization,
+    getAllOrganization,
+    getSingleOrganization
 }
