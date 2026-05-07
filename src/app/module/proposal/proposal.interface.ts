@@ -23,32 +23,18 @@ export interface ISystemDesign {
 
 export interface IProposal {
   lead: Types.ObjectId;
-
   client: Types.ObjectId;
-
   createdBy: Types.ObjectId;
-
   organization: Types.ObjectId;
-
   proposalNumber: string;
-
   utilityBill: number;
-
   roofType?: string;
-
   savingsProjection: ISavingsProjection;
-
   systemDesign: ISystemDesign;
-
   solarProofDesign?: string;
-
   pdfFile?: string;
-
   notes?: string;
-
   status: Status;
-
   financingOption?: string;
-
   taxCreditIncluded: boolean;
 }
