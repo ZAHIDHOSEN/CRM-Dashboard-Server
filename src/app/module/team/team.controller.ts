@@ -92,6 +92,45 @@ const getSingleTeam = catchAsync(async(req:Request, res:Response, next: NextFunc
 
 
 
+const addMemberToTeam = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    const {teamId,userId} = req.params
+    
+    const result = await TeamServices.addMemberToTeam(teamId as string,userId as string)
+    
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Member added successfully",
+        data: result
+
+
+     })
+})
+
+
+
+const removeMemberFromTeam = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    const {teamId,userId} = req.params
+    
+    const result = await TeamServices.removeMemberFromTeam(teamId as string,userId as string)
+    
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Member remove successfully",
+        data: result
+
+
+     })
+})
+
+
+
+
+
+
+
+
 
 
 
@@ -109,5 +148,7 @@ export const TeamController = {
     updateTeam,
     deleteTeam,
     getAllTeam,
-    getSingleTeam
+    getSingleTeam,
+    addMemberToTeam,
+    removeMemberFromTeam
 }
