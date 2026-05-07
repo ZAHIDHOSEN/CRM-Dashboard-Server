@@ -64,13 +64,26 @@ const getAllTeam = catchAsync(async(req:Request, res:Response, next: NextFunctio
     const result = await TeamServices.getAllTeam()
      
     
-    
-  
- 
      sendResponse(res,{
         success: true,
         statusCode: httpStatus.OK,
         message:"AllTeam get successfully",
+        data: result
+
+
+     })
+})
+
+
+const getSingleTeam = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    const id = req.params.id as string
+    const result = await TeamServices.getSingleTeam(id)
+     
+    
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"SingleTeam get successfully",
         data: result
 
 
@@ -91,17 +104,10 @@ const getAllTeam = catchAsync(async(req:Request, res:Response, next: NextFunctio
 
 
 
-
-
-
-
-
-
-
-
-
 export const TeamController = {
     createTeam,
     updateTeam,
-    deleteTeam
+    deleteTeam,
+    getAllTeam,
+    getSingleTeam
 }

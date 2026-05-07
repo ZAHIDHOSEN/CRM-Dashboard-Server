@@ -63,6 +63,17 @@ const getAllTeam = async()=>{
       teamNumber
    }
 }
+
+
+const getSingleTeam = async(id:string)=>{
+   const team = await Team.findById(id)
+
+   if(!team){
+      throw new Error("team not found")
+   }
+
+   return team
+}
   
 
 
@@ -83,5 +94,6 @@ export const TeamServices = {
    createTeam,
    updateTeam,
    deleteTeam,
-   getAllTeam
+   getAllTeam,
+   getSingleTeam
 }
