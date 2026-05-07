@@ -17,7 +17,8 @@ const createTeam = async(payload:Partial<ITeam>,orgId:string)=>{
    const newTeam = await Team.create({
       name:payload.name,
       leader:payload.leader,
-      organization:orgId,
+      // organization:orgId,
+      organization:payload.organization,
       members:payload.members
    })
 
@@ -25,6 +26,42 @@ const createTeam = async(payload:Partial<ITeam>,orgId:string)=>{
 
    return await newTeam.populate("leader","name email")
 
+}
+
+
+
+const updateTeam = async(id:string,payload:Partial<ITeam>)=>{
+
+   const team = await Team.findById(id)
+   if(!team){
+      throw new Error("Team didnot exists in db")
+   }
+
+   const updatedTeam = await Team.findByIdAndUpdate(id,payload,
+      {new:true,runValidators:true})
+
+      return updatedTeam
+   
+}
+
+
+
+const deleteTeam = async(id:string)=>{
+   
+  const result = await Team.findByIdAndDelete(id)
+  return result
+}
+
+
+
+const getAllTeam = async()=>{
+   const allTeam = await Team.find()
+   const teamNumber = await Team.countDocuments()
+
+   return {
+      allTeam,
+      teamNumber
+   }
 }
   
 
@@ -43,5 +80,8 @@ const createTeam = async(payload:Partial<ITeam>,orgId:string)=>{
 
 
 export const TeamServices = {
-   createTeam
+   createTeam,
+   updateTeam,
+   deleteTeam,
+   getAllTeam
 }

@@ -25,7 +25,7 @@ const login = async(email:string,password:string)=>{
         _id:user._id,
         email:user.email,
         role:user.role,
-        organization:user.organization
+        // organization:user.organization
     }
   
     const userWithOutPassword = user.toObject()
