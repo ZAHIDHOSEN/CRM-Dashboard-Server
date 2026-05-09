@@ -1,4 +1,4 @@
-import { IProposal } from "./proposal.interface"
+import { IProposal, Status } from "./proposal.interface"
 import { Proposal } from "./proposal.model";
 
 
@@ -68,6 +68,58 @@ const deleteProposal = async (id: string) => {
 };
 
 
+// advance
+
+
+const updateProposalStatus = async (
+  id: string,
+  status: Status
+) => {
+
+  const result = await Proposal.findByIdAndUpdate(
+    id,
+    { status },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  return result;
+};
+
+
+
+const getProposalAnalytics = async () => {
+
+  const totalProposal = await Proposal.countDocuments();
+
+  const draftProposal = await Proposal.countDocuments({
+    status: Status.DRAFT,
+  });
+
+  const sentProposal = await Proposal.countDocuments({
+    status: Status.SENT,
+  });
+
+  const acceptedProposal = await Proposal.countDocuments({
+    status: Status.ACCEPTED,
+  });
+
+  const rejectedProposal = await Proposal.countDocuments({
+    status: Status.REJECTED,
+  });
+
+  return {
+    totalProposal,
+    draftProposal,
+    sentProposal,
+    acceptedProposal,
+    rejectedProposal,
+  };
+};
+
+
 
 
 
@@ -79,5 +131,7 @@ export const ProposalServices = {
     getAllProposal,
     getSingleProposal,
     updateProposal,
-    deleteProposal
+    deleteProposal,
+    updateProposalStatus,
+    getProposalAnalytics
 }

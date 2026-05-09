@@ -89,6 +89,52 @@ const deleteProposal = catchAsync(async(req:Request, res:Response, next: NextFun
 
 
 
+const updateProposalStatus = catchAsync(
+  async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+
+    const { id } = req.params;
+
+    const { status } = req.body;
+
+    const result =
+      await ProposalServices.updateProposalStatus(
+        id as string,
+        status
+      );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Proposal status updated successfully",
+      data: result,
+    });
+  }
+);
+
+
+const getProposalAnalytics = catchAsync(
+  async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+
+    const result =
+      await ProposalServices.getProposalAnalytics();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Proposal analytics retrieved successfully",
+      data: result,
+    });
+  }
+);
+
 
 
 
@@ -100,5 +146,7 @@ export const ProposalController = {
     getAllProposal,
     getSingleProposal,
     updateProposal,
-    deleteProposal
+    deleteProposal,
+    updateProposalStatus,
+    getProposalAnalytics
 }
