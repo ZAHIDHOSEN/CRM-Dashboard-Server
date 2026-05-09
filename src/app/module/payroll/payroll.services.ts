@@ -51,6 +51,71 @@ const getSinglePayroll = async (id: string) => {
 };
 
 
+const deletePayroll = async(id:string)=>{
+  
+  const result = await Payroll.findByIdAndDelete(id)
+  return result
+
+}
+
+
+
+const updatePayroll = async(id:string,payload:Partial<IPayroll>)=>{
+
+  const result = await Payroll.findByIdAndUpdate(id,payload,{
+    new:true, runValidators:true
+  })
+  
+  return result
+}
+
+
+// advance
+
+const updatePayrollStatus = async(id:string,status:PayrollStatus)=>{
+  const result = await Payroll.findByIdAndUpdate(
+    id,
+    {status},
+   {new:true,runValidators:true}
+  )
+
+  return result
+}
+
+
+const getPayrollAnalytics = async () => {
+  const total = await Payroll.countDocuments();
+
+  const pending = await Payroll.countDocuments({
+    status: PayrollStatus.PENDING,
+  });
+
+  const paid = await Payroll.countDocuments({
+    status: PayrollStatus.PAID,
+  });
+
+  const rejected = await Payroll.countDocuments({
+    status: PayrollStatus.REJECTED,
+  });
+
+  const totalAmount = await Payroll.aggregate([
+    { $match: { status: PayrollStatus.PAID } },
+    { $group: { _id: null, total: { $sum: "$amount" } } },
+  ]);
+
+  return {
+    total,
+    pending,
+    paid,
+    rejected,
+    totalAmount: totalAmount[0]?.total || 0,
+  };
+};
+
+
+
+
+
 
 
 
@@ -63,5 +128,9 @@ const getSinglePayroll = async (id: string) => {
 export const PayrollServices = {
      createPayroll,
      getAllPayroll,
-     getSinglePayroll
+     getSinglePayroll,
+     deletePayroll,
+     updatePayroll,
+     updatePayrollStatus,
+     getPayrollAnalytics
 }

@@ -57,6 +57,81 @@ const getSinglePayroll = catchAsync(async(req:Request, res:Response, next: NextF
 })
 
 
+const deletePayroll = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const result = await PayrollServices.deletePayroll(id as string);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Payroll deleted successfully",
+      data: result,
+    });
+  }
+);
+
+
+const updatePayroll = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const result = await PayrollServices.updatePayroll(
+      id as string,
+      req.body
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Payroll updated successfully",
+      data: result,
+    });
+  }
+);
+
+
+
+
+const updatePayrollStatus = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const result = await PayrollServices.updatePayrollStatus(
+      id as string,
+      status
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Payroll status updated successfully",
+      data: result,
+    });
+  }
+);
+
+
+const getPayrollAnalytics = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await PayrollServices.getPayrollAnalytics();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Payroll analytics fetched successfully",
+      data: result,
+    });
+  }
+);
+
+
+
+
+
+
 
 
 
@@ -79,5 +154,9 @@ const getSinglePayroll = catchAsync(async(req:Request, res:Response, next: NextF
 export const PayrollController = {
    createPayroll,
    getAllPayroll,
-   getSinglePayroll
+   getSinglePayroll,
+   deletePayroll,
+   updatePayroll,
+   updatePayrollStatus,
+   getPayrollAnalytics
 } 
