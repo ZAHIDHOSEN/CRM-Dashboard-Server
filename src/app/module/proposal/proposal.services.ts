@@ -25,6 +25,50 @@ const getAllProposal = async(query:Record<string,unknown>)=>{
 }
 
 
+const getSingleProposal = async (id: string) => {
+
+  const result = await Proposal.findById(id)
+    .populate("lead")
+    .populate("client")
+    .populate("createdBy")
+    .populate("organization");
+
+  return result;
+};
+
+
+const updateProposal = async (
+  id: string,
+  payload: Partial<IProposal>
+) => {
+
+  const result = await Proposal.findByIdAndUpdate(
+    id,
+    payload,
+    {
+      new: true,
+      runValidators: true,
+    }
+  )
+    .populate("lead")
+    .populate("client")
+    .populate("createdBy")
+    .populate("organization");
+
+  return result;
+};
+
+
+
+const deleteProposal = async (id: string) => {
+
+  const result = await Proposal.findByIdAndDelete(id);
+
+  return result;
+};
+
+
+
 
 
 
@@ -32,5 +76,8 @@ const getAllProposal = async(query:Record<string,unknown>)=>{
 
 export const ProposalServices = {
     createProposal,
-    getAllProposal
+    getAllProposal,
+    getSingleProposal,
+    updateProposal,
+    deleteProposal
 }

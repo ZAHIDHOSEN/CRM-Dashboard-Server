@@ -39,6 +39,55 @@ const getAllProposal = catchAsync(async(req:Request, res:Response, next: NextFun
 })
 
 
+const getSingleProposal = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+   const id = req.params.id as string
+   const result = await ProposalServices.getSingleProposal(id)
+ 
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"SingleProposal get successfully",
+        data: result
+
+
+     })
+})
+
+const updateProposal = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+   const id = req.params.id as string
+   const payload = req.body;
+   const result = await ProposalServices.updateProposal(id,payload)
+ 
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Proposal updated successfully",
+        data: result
+
+
+     })
+})
+
+
+const deleteProposal = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+   const id = req.params.id as string
+  
+    await ProposalServices.deleteProposal(id)
+ 
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Proposal deleted successfully",
+        data: null
+
+
+     })
+})
+
+
 
 
 
@@ -48,5 +97,8 @@ const getAllProposal = catchAsync(async(req:Request, res:Response, next: NextFun
 
 export const ProposalController = {
     createProposal,
-    getAllProposal
+    getAllProposal,
+    getSingleProposal,
+    updateProposal,
+    deleteProposal
 }
