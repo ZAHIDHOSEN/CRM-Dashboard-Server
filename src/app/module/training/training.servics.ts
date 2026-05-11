@@ -74,6 +74,62 @@ const getPublishedTrainings = async () => {
 };
 
 
+const togglePublishTraining = async (id: string) => {
+
+  const training = await TrainingModule.findById(id);
+
+  if (!training) {
+    throw new Error("Training not found");
+  }
+
+  training.isPublished = !training.isPublished;
+
+  await training.save();
+
+  return training;
+};
+
+
+
+
+
+const submitQuiz = async ( id: string,payload: { answers: string[];}) => {
+
+  const training = await TrainingModule.findById(id);
+
+  if (!training) {
+    throw new Error("Training not found" );
+  }
+
+  if (!training.quizQuestions?.length) {
+    throw new Error("Quiz not available");
+  }
+
+  let score = 0;
+
+  training.quizQuestions.forEach(
+    (quiz, index) => {
+
+      if (
+        quiz.correctAnswer ===payload.answers[index]
+      ) {
+        score++;
+      }
+    }
+  );
+
+  const totalQuestions = training.quizQuestions.length;
+
+  const percentage = (score / totalQuestions) * 100;
+
+  return {
+    totalQuestions,
+    correctAnswers: score,
+    percentage,
+  };
+};
+
+
 
 
 
@@ -86,5 +142,7 @@ export const TrainingServices = {
      deleteTraining,
      updateTraining,
      getTrainingByRole,
-     getPublishedTrainings
+     getPublishedTrainings,
+     togglePublishTraining,
+     submitQuiz
 }

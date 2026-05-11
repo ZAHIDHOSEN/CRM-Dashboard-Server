@@ -131,6 +131,45 @@ const getPublishedTrainings =catchAsync(async (req:Request,res:Response, next:Ne
 
 
 
+  const togglePublishTraining =catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+      const { id } = req.params;
+
+      const result = await TrainingServices.togglePublishTraining( id as string);
+
+      sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Training publish status updated successfully",
+        data: result,
+      });
+    }
+  );
+
+
+
+
+
+
+
+
+const submitQuiz = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const { id } = req.params;
+
+    const result =await TrainingServices.submitQuiz( id as string,req.body);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message:"Quiz submitted successfully",
+      data: result,
+    });
+  }
+);
+
+
+
 
 
 
@@ -146,5 +185,7 @@ export const TrainingController = {
    deleteTraining,
    updateTraining,
    getTrainingByRole,
-   getPublishedTrainings
+   getPublishedTrainings,
+   togglePublishTraining,
+   submitQuiz
 }

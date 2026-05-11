@@ -10,7 +10,10 @@ const router = Router()
 
 router.post("/",checkAuth(UserRole.ADMIN),TrainingController.createTraining)
 router.get("/",checkAuth(UserRole.ADMIN),TrainingController.getAllTraining)
-
+router.get("/my-training",checkAuth(),TrainingController.getTrainingByRole)
+router.post("/submit-quiz/:id",checkAuth(),TrainingController.submitQuiz)
+router.get("/published",checkAuth(),TrainingController.getPublishedTrainings)
+router.patch("/publish/:id",checkAuth(UserRole.ADMIN),TrainingController.togglePublishTraining)
 
 // dynamic route
 router.get("/:id",checkAuth(),TrainingController.getSingleTraining)
