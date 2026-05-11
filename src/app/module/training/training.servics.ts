@@ -1,3 +1,4 @@
+import { PayrollStatus } from "../payroll/payroll.interface"
 import { ITrainingModule } from "./training.interface"
 import { TrainingModule } from "./training.model"
 
@@ -21,6 +22,35 @@ const getAllTraining = async(query:Record<string,unknown>)=>{
 }
 
 
+const getSingleTraining = async(id:string)=>{
+    
+    const result = await TrainingModule.findById(id)
+    .populate("organization")
+    .populate("createdBy")
+    return result
+}
+
+
+const deleteTraining = async(id:string)=>{
+    const result = await TrainingModule.findByIdAndDelete(id)
+    return result 
+}
+
+
+const updateTraining = async(id:string,payload:Partial<ITrainingModule>)=>{
+   
+    const training = await TrainingModule.findById(id)
+    if(!training){
+        throw new Error("training not found")
+    }
+
+    const result = await TrainingModule.findByIdAndUpdate(id,payload,{
+        new:true, runValidators:true
+    })
+
+    return result
+}
+
 
 
 
@@ -30,5 +60,8 @@ const getAllTraining = async(query:Record<string,unknown>)=>{
 
 export const TrainingServices = {
      createTraining,
-     getAllTraining
+     getAllTraining,
+     getSingleTraining,
+     deleteTraining,
+     updateTraining
 }
