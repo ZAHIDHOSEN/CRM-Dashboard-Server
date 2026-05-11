@@ -7,6 +7,7 @@ import { OrganizationRoute } from "./app/module/organization/organization.route"
 import { TeamRoute } from "./app/module/team/team.route"
 import { ProposalRoute } from "./app/module/proposal/proposal.route"
 import { PayrollRoute } from "./app/module/payroll/payroll.route"
+import { TrainingRoute } from "./app/module/training/training.route"
 
 
 const app = express()
@@ -20,6 +21,7 @@ app.use("/api/v1/organization",OrganizationRoute)
 app.use("/api/v1/team",TeamRoute)
 app.use("/api/v1/proposal",ProposalRoute)
 app.use("/api/v1/payroll",PayrollRoute)
+app.use("/api/v1/training",TrainingRoute)
 
 
 app.get("/",(req:Request,res:Response)=>{

@@ -1,4 +1,5 @@
 import { PayrollStatus } from "../payroll/payroll.interface"
+import { UserRole } from "../user/user.interface"
 import { ITrainingModule } from "./training.interface"
 import { TrainingModule } from "./training.model"
 
@@ -51,6 +52,26 @@ const updateTraining = async(id:string,payload:Partial<ITrainingModule>)=>{
     return result
 }
 
+// advance
+
+const getTrainingByRole = async(role:UserRole)=>{
+    const result = await TrainingModule.find({
+        role,
+        isPublished:true
+    })
+
+    return result 
+}
+
+
+const getPublishedTrainings = async () => {
+
+  const result = await TrainingModule.find({
+    isPublished: true,
+  });
+
+  return result;
+};
 
 
 
@@ -63,5 +84,7 @@ export const TrainingServices = {
      getAllTraining,
      getSingleTraining,
      deleteTraining,
-     updateTraining
+     updateTraining,
+     getTrainingByRole,
+     getPublishedTrainings
 }

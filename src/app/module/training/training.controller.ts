@@ -3,6 +3,7 @@ import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from "../../utils/sendResponse"
 import httpStatus from "http-status-codes"
 import { TrainingServices } from "./training.servics"
+import { UserRole } from "../user/user.interface"
 
 
 
@@ -93,6 +94,42 @@ const updateTraining = catchAsync(async(req:Request, res:Response, next: NextFun
 })
 
 
+const getTrainingByRole = catchAsync(async ( req: Request,res: Response,next: NextFunction) => {
+
+   //  const { role } = req.params;
+   const role = req.user.role;
+
+    const result =
+      await TrainingServices.getTrainingByRole(
+        role as UserRole
+      );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message:"Role based trainings retrieved successfully",
+      data: result,
+    });
+  }
+);
+
+
+
+
+const getPublishedTrainings =catchAsync(async (req:Request,res:Response, next:NextFunction) => {
+
+      const result = await TrainingServices.getPublishedTrainings();
+
+      sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Published trainings retrieved successfully",
+        data: result,
+      });
+    }
+  );
+
+
 
 
 
@@ -107,5 +144,7 @@ export const TrainingController = {
    getAllTraining,
    getSingleTraining,
    deleteTraining,
-   updateTraining
+   updateTraining,
+   getTrainingByRole,
+   getPublishedTrainings
 }
