@@ -19,3 +19,51 @@ MessageController.getChatHistory
 
 
 export const MessageRoute = router
+
+
+
+
+
+// import { Router } from "express";
+// import { MessageController } from "./message.controller";
+// import { checkAuth } from "../../middleware/authMiddleware";
+
+// const router = Router();
+
+
+
+// // send message
+// router.post(
+//   "/",
+//   checkAuth(),
+//   MessageController.sendMessage
+// );
+
+
+
+// // inbox
+// router.get(
+//   "/inbox",
+//   checkAuth(),
+//   MessageController.getInbox
+// );
+
+
+
+// // chat between users
+// router.get(
+//   "/:userId",
+//   checkAuth(),
+//   MessageController.getMessages
+// );
+
+
+
+// // mark as read
+// router.patch(
+//   "/read/:id",
+//   checkAuth(),
+//   MessageController.markAsRead
+// );
+
+// export const MessageRoutes = router;
