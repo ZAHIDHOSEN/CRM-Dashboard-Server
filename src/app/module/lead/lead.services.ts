@@ -3,14 +3,15 @@ import { Lead } from "./lead.model"
 
 
 
-const createLead = async (leadData:ILead)=>{
-  const {name} = leadData
+const createLead = async (payload:ILead)=>{
+  const {name} = payload
+  const isLeadExits = await Lead.findOne({name})
 
-  if(name){
+  if(isLeadExits){
     throw new Error("this name lead already exists")
   }
 
-  const result = await Lead.create(leadData)
+  const result = await Lead.create(payload)
 
   return result
 

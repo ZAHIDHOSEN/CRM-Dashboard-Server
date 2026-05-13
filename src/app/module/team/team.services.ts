@@ -82,7 +82,7 @@ const deleteTeam = async(id:string)=>{
 
 
 const getAllTeam = async()=>{
-   const allTeam = await Team.find()
+   const allTeam = await Team.find().populate("leader").populate("members")
    const teamNumber = await Team.countDocuments()
 
    return {

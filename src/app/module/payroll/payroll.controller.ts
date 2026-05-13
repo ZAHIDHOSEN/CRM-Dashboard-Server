@@ -6,8 +6,12 @@ import { PayrollServices } from "./payroll.services"
 
 
 const createPayroll = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
-    const payload = req.body
-   
+    const payroll = req.body
+    const createdBy = req.user._id
+    const payload = {
+      ...payroll,
+      createdBy
+    }   
    const result = await PayrollServices.createPayroll(payload)
   
     sendResponse(res,{

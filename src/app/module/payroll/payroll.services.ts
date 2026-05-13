@@ -4,7 +4,9 @@ import { Payroll } from "./payroll.model"
 
 
 const createPayroll = async(payload:Partial<IPayroll>)=>{
-   
+    if(!payload.status){
+      payload.status = PayrollStatus.PENDING
+    }
     const result = await Payroll.create(payload)
     return result
 }

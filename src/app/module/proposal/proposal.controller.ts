@@ -6,7 +6,12 @@ import { ProposalServices } from "./proposal.services"
 
 
 const createProposal = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
-    const payload = req.body
+    const proposal = req.body
+    const createdBy = req.user._id
+    const payload = {
+      ...proposal,
+      createdBy
+    }
     const result = await ProposalServices.createProposal(payload)
    
   

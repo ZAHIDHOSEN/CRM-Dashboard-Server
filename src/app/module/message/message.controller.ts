@@ -58,3 +58,88 @@ export const MessageController = {
    sendMessage,
    getChatHistory
 }
+
+
+
+// import { Request, Response, NextFunction } from "express";
+// import httpStatus from "http-status";
+
+// import catchAsync from "../../utils/catchAsync";
+// import sendResponse from "../../utils/sendResponse";
+
+// import { MessageService } from "./message.service";
+
+
+
+// // send message
+// const sendMessage = catchAsync(async (req: Request, res: Response) => {
+//   const payload = {
+//     ...req.body,
+//     sender: req.user.userId,
+//   };
+
+//   const result = await MessageService.sendMessage(payload);
+
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.CREATED,
+//     message: "Message sent successfully",
+//     data: result,
+//   });
+// });
+
+
+
+// // get chat between users
+// const getMessages = catchAsync(async (req: Request, res: Response) => {
+//   const userId = req.user.userId;
+//   const targetId = req.params.userId;
+
+//   const result = await MessageService.getMessages(userId, targetId);
+
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.OK,
+//     message: "Messages retrieved successfully",
+//     data: result,
+//   });
+// });
+
+
+
+// // mark as read
+// const markAsRead = catchAsync(async (req: Request, res: Response) => {
+//   const { id } = req.params;
+
+//   const result = await MessageService.markAsRead(id);
+
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.OK,
+//     message: "Message marked as read",
+//     data: result,
+//   });
+// });
+
+
+
+// // inbox
+// const getInbox = catchAsync(async (req: Request, res: Response) => {
+//   const userId = req.user.userId;
+
+//   const result = await MessageService.getInbox(userId);
+
+//   sendResponse(res, {
+//     success: true,
+//     statusCode: httpStatus.OK,
+//     message: "Inbox fetched successfully",
+//     data: result,
+//   });
+// });
+
+// export const MessageController = {
+//   sendMessage,
+//   getMessages,
+//   markAsRead,
+//   getInbox,
+// };

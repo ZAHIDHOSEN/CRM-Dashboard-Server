@@ -9,8 +9,12 @@ import { UserRole } from "../user/user.interface"
 
 const createTraining = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
     
-   
-  const result = await TrainingServices.createTraining(req.body)
+   const createdBy = req.user._id
+   const payload = {
+    ...req.body,
+    createdBy
+   }
+  const result = await TrainingServices.createTraining(payload)
 
  
      sendResponse(res,{
@@ -27,7 +31,7 @@ const createTraining = catchAsync(async(req:Request, res:Response, next: NextFun
 const getAllTraining = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
     
    
-  const result = await TrainingServices.createTraining(req.query)
+  const result = await TrainingServices.getAllTraining(req.query)
 
  
      sendResponse(res,{

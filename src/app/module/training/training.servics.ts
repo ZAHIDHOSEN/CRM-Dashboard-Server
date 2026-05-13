@@ -20,6 +20,8 @@ const getAllTraining = async(query:Record<string,unknown>)=>{
     .populate("organization")
     .populate("createdBy")
 
+    return result
+
 }
 
 
