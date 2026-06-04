@@ -23,6 +23,7 @@ const startServer = async()=>{
         
     } catch (error) {
        throw new Error("error in start server")
+      
      
     }
 }

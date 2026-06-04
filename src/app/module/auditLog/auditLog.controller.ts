@@ -6,8 +6,13 @@ import { AuditLogServices } from "./auditLog.services"
 
 
 const createAuditLog = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
-    
-    const result = await AuditLogServices.createAuditLog(req.body)
+    const auditLog = req.body
+    const user = req.user._id
+    const payload = {
+      ...req.body,
+      user
+    }
+    const result = await AuditLogServices.createAuditLog(payload)
    
   
  

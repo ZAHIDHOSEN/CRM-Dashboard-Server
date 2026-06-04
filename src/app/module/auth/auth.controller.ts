@@ -95,6 +95,8 @@ const resetPassword = catchAsync(async(req:Request, res:Response, next: NextFunc
 
 
 
+
+
 export const AuthController ={
     login,
     logOut,

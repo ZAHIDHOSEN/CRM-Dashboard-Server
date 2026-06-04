@@ -6,7 +6,7 @@ import { AuthController } from "./auth.controller";
 
 const router = Router()
 
-router.post("/",AuthController.login)
+router.post("/login",AuthController.login)
 router.post("/logout",AuthController.logOut)
 router.post("/reset-password",AuthController.resetPassword)
 
