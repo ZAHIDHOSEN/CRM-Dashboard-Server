@@ -31,13 +31,13 @@ const updateUser = catchAsync(async(req:Request, res:Response, next: NextFunctio
      const id = req.params.id as string;
      const payload = req.body
     
-    
+    const result = await UserServices.updateUser(id,payload)
  
      sendResponse(res,{
         success: true,
         statusCode: httpStatus.OK,
         message:"User updated successfully",
-        data: {}
+        data: result 
 
 
      })
@@ -49,7 +49,7 @@ const deleteUser = catchAsync(async(req:Request, res:Response, next: NextFunctio
     
      const id = req.params.id as string;
     
-    
+     await UserServices.deleteUser(id)
       
  
      sendResponse(res,{
@@ -65,13 +65,13 @@ const deleteUser = catchAsync(async(req:Request, res:Response, next: NextFunctio
 const getAllUsers = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
     
 
-     
+     const result = await UserServices.getAllUsers()
     
      sendResponse(res,{
         success: true,
         statusCode: httpStatus.OK,
         message:"AllUsers get successfully",
-        data: {}
+        data: result 
 
 
      })

@@ -70,6 +70,17 @@ const resetPassword = async( payload:Record<string,any>,decodedToken:JwtPayload)
 }
 
 
+const getMe = async(id:string)=>{
+   const user = await User.findById(id)
+
+   if(!user){
+      throw new Error("user not found")
+   }
+
+   return user
+}
+
+
 
 
 
@@ -81,5 +92,6 @@ const resetPassword = async( payload:Record<string,any>,decodedToken:JwtPayload)
 
 export const AuthServices ={
     login,
-    resetPassword
+    resetPassword,
+    getMe
 }

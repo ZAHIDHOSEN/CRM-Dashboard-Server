@@ -80,6 +80,24 @@ const resetPassword = catchAsync(async(req:Request, res:Response, next: NextFunc
      })
 })
 
+const getMe = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    const id = req.user?._id
+    if(!id){
+        throw new Error("Unauthorized:user data missing")
+    }
+    const result = await AuthServices.getMe(id)
+     
+    
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"User get successfully",
+        data: result
+
+
+     })
+})
+
 
 
 
@@ -100,5 +118,6 @@ const resetPassword = catchAsync(async(req:Request, res:Response, next: NextFunc
 export const AuthController ={
     login,
     logOut,
-    resetPassword
+    resetPassword,
+    getMe
 }
