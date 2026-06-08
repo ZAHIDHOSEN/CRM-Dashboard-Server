@@ -1,6 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { LeadServices } from "./lead.services";
-
+import { catchAsync } from "../../utils/catchAsync";
+import { sendResponse } from "../../utils/sendResponse";
+import httpStatus from "http-status-codes"
 
 const createLead = async(req:Request,res:Response)=>{
     try {
@@ -27,6 +29,64 @@ const createLead = async(req:Request,res:Response)=>{
 
 
 
+const updateLeads = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+     const id = req.params.id as string;
+     const payload = req.body
+    
+    const result = await LeadServices.updateLeads(id,payload)
+ 
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Leads updated successfully",
+        data: result
+
+
+     })
+})
+
+
+
+const deleteLeads = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+     const id = req.params.id as string;
+    
+     await LeadServices.deleteLeads(id)
+      
+ 
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"Leads deleted successfully",
+        data: null
+
+
+     })
+})
+
+const getAllLeads = catchAsync(async(req:Request, res:Response, next: NextFunction)=>{
+    
+     const result = await LeadServices.getAllLeads()
+    
+    
+     sendResponse(res,{
+        success: true,
+        statusCode: httpStatus.OK,
+        message:"AllLeads get successfully",
+        data: result
+
+
+     })
+})
+
+
+
+
+
+
+
+
 
 
 
@@ -34,5 +94,8 @@ const createLead = async(req:Request,res:Response)=>{
 
 
 export const LeadController = {
-     createLead
+     createLead,
+     updateLeads,
+     deleteLeads,
+     getAllLeads
 }

@@ -20,6 +20,32 @@ const createLead = async (payload:ILead)=>{
 
 
 
+const updateLeads = async(id:string,payload:Partial<ILead>)=>{
+  const leads = await Lead.findById(id)
+
+  if(!leads){
+     throw new Error("Leads not found")
+  }
+
+  const updatedLeads = await Lead.findByIdAndUpdate(id,payload,{new:true,runValidators:true})
+
+  return updatedLeads
+
+}
+
+
+const deleteLeads = async(id:string)=>{
+  const result = await Lead.findByIdAndDelete(id)
+  return result 
+}
+
+const getAllLeads = async()=>{
+  const result = await Lead.find()
+  return result
+}
+
+
+
 
 
 
@@ -30,5 +56,8 @@ const createLead = async (payload:ILead)=>{
 
 
 export const LeadServices = {
-    createLead
+    createLead,
+    updateLeads,
+    deleteLeads,
+    getAllLeads
 }

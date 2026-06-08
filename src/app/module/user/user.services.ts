@@ -35,7 +35,7 @@ const updateUser = async(id:string,payload:Partial<IUser>)=>{
 
    const user = await User.findById(id)
    if(!user){
-      throw new Error("Team didnot exists in db")
+      throw new Error("User didnot exists in db")
    }
 
    const updatedUser = await User.findByIdAndUpdate(id,payload,

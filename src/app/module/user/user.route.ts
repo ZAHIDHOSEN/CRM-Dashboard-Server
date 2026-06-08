@@ -11,7 +11,7 @@ const router = Router()
 router.post("/",UserController.createUser)
 router.get("/",checkAuth(UserRole.ADMIN,UserRole.LEADER),UserController.getAllUsers)
 router.patch("/:id",checkAuth(),UserController.updateUser),
-router.delete("/:id",checkAuth(UserRole.ADMIN,UserRole.INSTALLER),UserController.deleteUser)
+router.delete("/:id",checkAuth(UserRole.ADMIN,UserRole.LEADER),UserController.deleteUser)
 
 
 
