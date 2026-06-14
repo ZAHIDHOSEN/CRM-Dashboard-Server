@@ -8,10 +8,10 @@ import { UserRole } from "../user/user.interface";
 
 const router = Router()
 
-router.post("/",checkAuth(UserRole.ADMIN),TeamController.createTeam)
-router.patch("/:id",checkAuth(UserRole.ADMIN),TeamController.updateTeam)
-router.delete("/:id",checkAuth(UserRole.ADMIN),TeamController.deleteTeam)
-router.get("/allTeam",checkAuth(UserRole.ADMIN),TeamController.getAllTeam)
+router.post("/",checkAuth(UserRole.ADMIN,UserRole.LEADER),TeamController.createTeam)
+router.patch("/:id",checkAuth(UserRole.ADMIN,UserRole.LEADER),TeamController.updateTeam)
+router.delete("/:id",checkAuth(UserRole.ADMIN,UserRole.LEADER),TeamController.deleteTeam)
+router.get("/allTeam",checkAuth(UserRole.ADMIN,UserRole.LEADER),TeamController.getAllTeam)
 // advance
 router.patch("/:teamId/add-member/:userId",checkAuth(UserRole.ADMIN, UserRole.LEADER),TeamController.addMemberToTeam)
 router.patch("/:teamId/remove-member/:userId",checkAuth(UserRole.ADMIN, UserRole.LEADER),TeamController.removeMemberFromTeam)

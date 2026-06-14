@@ -9,6 +9,7 @@ import { ProposalRoute } from "./app/module/proposal/proposal.route"
 import { PayrollRoute } from "./app/module/payroll/payroll.route"
 import { TrainingRoute } from "./app/module/training/training.route"
 import cors from "cors"
+import { AuditLogRoute } from "./app/module/auditLog/auditLog.route"
 
 const app = express()
 
@@ -30,6 +31,7 @@ app.use("/api/v1/team",TeamRoute)
 app.use("/api/v1/proposal",ProposalRoute)
 app.use("/api/v1/payroll",PayrollRoute)
 app.use("/api/v1/training",TrainingRoute)
+app.use("/api/v1/audit-log",AuditLogRoute)
 
 
 app.get("/",(req:Request,res:Response)=>{

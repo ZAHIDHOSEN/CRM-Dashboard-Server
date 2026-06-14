@@ -12,7 +12,7 @@ const router = Router()
 
 router.post("/",checkAuth(UserRole.ADMIN),AuditLogController.createAuditLog);
 router.get("/",checkAuth(UserRole.ADMIN),AuditLogController.getAllAuditLog);
-router.get( "/:id",checkAuth(UserRole.ADMIN),AuditLogController.getSingleAuditLog);
+router.get("/:id",checkAuth(UserRole.ADMIN),AuditLogController.getSingleAuditLog);
 
 
 
