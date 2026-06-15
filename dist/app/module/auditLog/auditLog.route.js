@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuditLogRoute = void 0;
+const express_1 = require("express");
+const authMiddleware_1 = require("../../middleware/authMiddleware");
+const user_interface_1 = require("../user/user.interface");
+const auditLog_controller_1 = require("./auditLog.controller");
+const router = (0, express_1.Router)();
+router.post("/", (0, authMiddleware_1.checkAuth)(user_interface_1.UserRole.ADMIN), auditLog_controller_1.AuditLogController.createAuditLog);
+router.get("/", (0, authMiddleware_1.checkAuth)(user_interface_1.UserRole.ADMIN), auditLog_controller_1.AuditLogController.getAllAuditLog);
+router.get("/:id", (0, authMiddleware_1.checkAuth)(user_interface_1.UserRole.ADMIN), auditLog_controller_1.AuditLogController.getSingleAuditLog);
+exports.AuditLogRoute = router;
